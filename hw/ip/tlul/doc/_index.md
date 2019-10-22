@@ -1,12 +1,14 @@
-{{% lowrisc-doc-hdr Bus Specification }}
+---
+title: "Bus Specification"
+---
 
-{{% section1 Overview }}
+# Overview
 
 This document specifies the bus functionality within a Comportable top level
 system. This includes the bus protocol and all hardware IP that supports
 creating the network on chip within that framework.
 
-{{% section2 Features }}
+## Features
 
 - Support for multiple bus hosts and bus devices<sup>1</sup>
 - Support for multiple clock domains
@@ -22,7 +24,7 @@ creating the network on chip within that framework.
 <sup>1</sup>lowRISC is avoiding the fraught terms master/slave and defaulting
 to host/device where applicable.
 
-{{% section2 Description }}
+## Description
 
 For chip-level interconnect, Comportable devices will be using
 [TileLink](https://static.dev.sifive.com/docs/tilelink/tilelink-spec-1.7-draft.pdf)
@@ -54,7 +56,7 @@ end goal to generate the crossbar (or crossbars) programmatically through
 usage of configuration files, but that will not change the operation of
 the fabric and is beyond the scope of this current specification.
 
-{{% section2 Compatibility }}
+## Compatibility
 
 With the exception of the user extensions, the bus is
 compliant with TileLink-UL. The bus primitives, hosts and peripherals
@@ -64,9 +66,9 @@ ignore the user signals and as a
 source will generate a project-specific default value. Alternatively,
 the blocks can be easily modified to make use of the user extensions.
 
-{{% section1 Theory of Operations }}
+# Theory of Operations
 
-{{% section2 Signals }}
+## Signals
 
 The table below lists all of the TL-UL signals. "Direction" is
 w.r.t. a bus host, signals marked as output will be in the verilog
@@ -123,7 +125,7 @@ Section 3.2.2 of the
 has a requirement on TL-UL hosts ("masters" in TileLink terminology) that "`valid` signals must be driven LOW for at least 100 cycles while reset is asserted."
 The TL-UL collateral within this library does **not** have this requirement on its TL-UL host drivers.
 TL-UL devices within the library can tolerate shorter reset windows.
-(See the reset section of the [Comportability Specification](../../../../doc/rm/comportability_specification.md)
+(See the reset section of the [Comportability Specification]({{< relref "doc/rm/comportability_specification" >}})
 for details on reset requirements.)
 
 ### Signal and Struct Definitions
@@ -327,13 +329,13 @@ assert `d_error` if they don't.
 | `3'b001` | `AccessAckData` | Read command acknowledgement, data valid on `d_data` |
 | `3'b01x, 3'b1xx` | `undefined` | All other opcodes are undefined; responses with undefined opcodes should be ignored by hosts (with assertions). |
 
-{{% section2 Timing Diagrams }}
+## Timing Diagrams
 
 This section shows the timing relationship on the bus for writes with
 response, and reads with response. This shows a few transactions, see
 the TileLink specification for more examples.
 
-```wavejson
+{{< wavejson >}}
 {
   signal: [
     { name: 'clk_i',      wave: 'p...................' },
@@ -361,9 +363,9 @@ the TileLink specification for more examples.
     text: 'six write transactions (four full, two partial) with various req/ready delays, error on I4 response',
     }
 }
-```
+{{< /wavejson >}}
 
-```wavejson
+{{< wavejson >}}
 {
   signal: [
     { name: 'clk_i',    wave: 'p...................' },
@@ -389,9 +391,9 @@ the TileLink specification for more examples.
     text: 'six read transactions with various req/ready delays, error on I4 response',
     }
 }
-```
+{{< /wavejson >}}
 
-{{% section2 Bus Primitives }}
+## Bus Primitives
 
 The bus primitives are defined in the following table and described in
 detail below.
