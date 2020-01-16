@@ -69,7 +69,7 @@ class ${name}_scoreboard extends dv_base_scoreboard #(
       csr = ral.default_map.get_reg_by_offset(csr_addr);
       `DV_CHECK_NE_FATAL(csr, null)
     end
-    end else begin
+    else begin
       `uvm_fatal(`gfn, $sformatf("Access unexpected addr 0x%0h", csr_addr))
     end
 
