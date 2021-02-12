@@ -10,6 +10,7 @@ filesets:
     depend:
       - lowrisc:prim:all
       - lowrisc:tlul:common
+      - lowrisc:tlul:payload_chk
     files:
       - rtl/tlul_adapter_reg.sv
     file_type: systemVerilogSource
