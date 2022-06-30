@@ -1,4 +1,6 @@
-# Register generator `reggen` and `regtool`
+---
+title: "Register generator `reggen` and `regtool`"
+---
 
 The utility script `regtool.py` and collateral under `reggen` are Python
 tools to read register descriptions in Hjson and generate various output
