@@ -1,4 +1,6 @@
-# bus_params_pkg
+---
+title: "bus_params_pkg"
+---
 
 This package provides an isolation for all common verification components under
 `hw/dv/sv/` from the OpenTitan specific design constants provided in
