@@ -1,0 +1,4 @@
+[submodule "deps/uvm-verilator"]
+	path = deps/uvm-verilator
+	url = git@github.com:ganoam/uvm-verilator
+	branch = master
