@@ -15,6 +15,7 @@ filesets:
       - lowrisc:dv:dv_utils
       - lowrisc:dv:dv_test_status
       - lowrisc:dv:common_ifs
+      - ganoam:dv:uvm_pkg
     files:
       - prim_lfsr_tb.sv
     file_type: systemVerilogSource
@@ -25,7 +26,18 @@ targets:
     filesets:
       - files_rtl
       - files_dv
-    default_tool: vcs
-
+    default_tool: verilator
+    tools:
+      verilator:
+        mode: binary
+        verilator_options:
+          - "-Wno-fatal"
+          - "--timing"
+          - "-j 16"
+          - "--trace-fst"
+          - "--trace-fst-thread"
+          - "--trace-structs"
+          - "--trace-enums"
+          - "--trace-params"
   lint:
     <<: *sim_target

@@ -17,13 +17,11 @@ interface clk_rst_if (
   inout rst_n
 );
 
-`ifndef VERILATOR
   // include macros and import pkgs
   `include "dv_macros.svh"
   `include "uvm_macros.svh"
   import uvm_pkg::*;
   import common_ifs_pkg::*;
-`endif
 
   // Enables clock to be generated and driven by this interface.
   bit drive_clk;
