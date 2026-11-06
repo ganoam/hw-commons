@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # Copyright lowRISC contributors (OpenTitan project).
+# Modifications by ganoam.
 # Licensed under the Apache License, Version 2.0, see LICENSE for details.
 # SPDX-License-Identifier: Apache-2.0
 r"""Command-line tool to generate boilerplate DV testbench.
@@ -14,6 +15,7 @@ import sys
 from uvmdvgen import gen_agent
 from uvmdvgen import gen_env
 from uvmdvgen import VENDOR_DEFAULT
+from uvmdvgen import AGENT_VENDOR_DEFAULT
 
 
 def main():
@@ -121,6 +123,15 @@ def main():
         """Name of the vendor / entity developing the testbench. This is used
         to set the VLNV of the FuseSoC core files.""")
 
+    parser.add_argument(
+        "-av",
+        "--agent-vendor",
+        default=AGENT_VENDOR_DEFAULT,
+        help=
+        """Name of the vendor / entity providing the agents listed via
+        --env-agents. This is used to set the VLNV of the agent dependencies
+        in the generated env core file.""")
+
     args = parser.parse_args()
 
     # The name should be alphanumeric.
@@ -151,7 +162,8 @@ def main():
             args.env_agents = []
         gen_env.gen_env(args.name, args.is_cip, args.has_ral,
                         args.has_interrupts, args.has_alerts, args.num_edn,
-                        args.env_agents, args.env_outdir, args.vendor)
+                        args.env_agents, args.env_outdir, args.vendor,
+                        args.agent_vendor)
 
 
 if __name__ == '__main__':

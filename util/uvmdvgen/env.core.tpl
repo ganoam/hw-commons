@@ -13,7 +13,7 @@ filesets:
 % endif
       - lowrisc:dv:dv_lib
 % for agent in env_agents:
-      - ${vendor}:dv:${agent}_agent
+      - ${agent_vendor}:dv:${agent}_agent
 % endfor
     files:
       - ${name}_env_pkg.sv

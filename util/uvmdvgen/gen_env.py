@@ -1,4 +1,5 @@
 # Copyright lowRISC contributors (OpenTitan project).
+# Modifications by ganoam.
 # Licensed under the Apache License, Version 2.0, see LICENSE for details.
 # SPDX-License-Identifier: Apache-2.0
 """Generate SystemVerilog UVM agent extended from our DV lib
@@ -10,10 +11,11 @@ import logging as log
 from mako.template import Template
 import importlib.resources
 from uvmdvgen import VENDOR_DEFAULT
+from uvmdvgen import AGENT_VENDOR_DEFAULT
 
 
 def gen_env(name, is_cip, has_ral, has_interrupts, has_alerts, num_edn,
-            env_agents, root_dir, vendor):
+            env_agents, root_dir, vendor, agent_vendor):
     # yapf: disable
     # flake8: noqa
     # 4-tuple - sub-path, ip name, class name, file ext
@@ -42,12 +44,15 @@ def gen_env(name, is_cip, has_ral, has_interrupts, has_alerts, num_edn,
                 ('dv',              name + '_', 'sim',                '.core')]
     # yapf: enable
 
-    if vendor != VENDOR_DEFAULT and env_agents != []:
+    if (vendor != VENDOR_DEFAULT and agent_vendor == AGENT_VENDOR_DEFAULT
+            and env_agents != []):
         env_core_path = root_dir + "/dv/env/" + name + "_env.core"
         print(
-            "WARNING: Both, --vendor and --env-agents switches are supplied "
-            "on the command line. Please check the VLNV names of the "
-            "dependent agents in the generated {} file.".format(env_core_path))
+            "WARNING: --vendor is set to '{}' but --env-agents is supplied "
+            "without --agent-vendor. Agent dependencies in the generated {} "
+            "file will still use vendor '{}'. Please check the VLNV names "
+            "if this is not intended.".format(vendor, env_core_path,
+                                             agent_vendor))
 
     for tup in env_srcs:
         path_dir = root_dir + '/' + tup[0]
@@ -82,6 +87,7 @@ def gen_env(name, is_cip, has_ral, has_interrupts, has_alerts, num_edn,
                                has_alerts=has_alerts,
                                num_edn=num_edn,
                                env_agents=env_agents,
-                               vendor=vendor))
+                               vendor=vendor,
+                               agent_vendor=agent_vendor))
             except Exception as e:
                 log.error(e.text_error_template().render())

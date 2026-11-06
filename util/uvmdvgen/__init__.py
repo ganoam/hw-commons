@@ -4,3 +4,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 VENDOR_DEFAULT = "ganoam"
+
+# Default vendor for agents referenced by --env-agents (vendored upstream
+# agents are used unchanged, hence lowrisc).
+AGENT_VENDOR_DEFAULT = "lowrisc"
