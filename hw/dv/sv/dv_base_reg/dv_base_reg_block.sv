@@ -4,7 +4,7 @@
 //
 // base register block class which will be used to generate the reg blocks
 class dv_base_reg_block extends uvm_reg_block;
-  `m_uvm_get_type_name_func(dv_base_reg_block)
+  `uvm_object_utils(dv_base_reg_block)
 
   // The default addr, data and byte widths.
   //
