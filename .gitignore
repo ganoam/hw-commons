@@ -1,5 +1,6 @@
 build
 vcode.f
+lazyverilog.toml
 dump.fst
 toplevels.list
 vcode.f
