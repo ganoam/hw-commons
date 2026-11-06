@@ -1,0 +1,41 @@
+// Copyright lowRISC contributors (OpenTitan project).
+// Generated from lowRISC uvmdvgen templates; modifications by ganoam.
+// Licensed under the Apache License, Version 2.0, see LICENSE for details.
+// SPDX-License-Identifier: Apache-2.0
+//
+module tb;
+  // dep packages
+  import uvm_pkg::*;
+  import dv_utils_pkg::*;
+  import stream_reg_env_pkg::*;
+  import stream_reg_test_pkg::*;
+
+  // macro includes
+  `include "uvm_macros.svh"
+  `include "dv_macros.svh"
+
+  wire clk, rst_n;
+
+  // interfaces
+  clk_rst_if clk_rst_if(.clk(clk), .rst_n(rst_n));
+  push_pull_if push_pull_if();
+  push_pull_if push_pull_if();
+
+
+  // dut
+  stream_reg dut (
+    .clk_i                (clk      ),
+    // TODO: add remaining IOs and hook them
+  );
+
+  initial begin
+    // drive clk and rst_n from clk_if
+    clk_rst_if.set_active();
+    uvm_config_db#(virtual clk_rst_if)::set(null, "*.env", "clk_rst_vif", clk_rst_if);
+    uvm_config_db#(virtual push_pull_if)::set(null, "*.env.m_push_pull_agent*", "vif", push_pull_if);
+    uvm_config_db#(virtual push_pull_if)::set(null, "*.env.m_push_pull_agent*", "vif", push_pull_if);
+    $timeformat(-12, 0, " ps", 12);
+    run_test();
+  end
+
+endmodule

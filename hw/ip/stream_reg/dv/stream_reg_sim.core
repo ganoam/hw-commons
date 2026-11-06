@@ -1,0 +1,31 @@
+CAPI=2:
+# Copyright lowRISC contributors (OpenTitan project).
+# Generated from lowRISC uvmdvgen templates; modifications by ganoam.
+# Licensed under the Apache License, Version 2.0, see LICENSE for details.
+# SPDX-License-Identifier: Apache-2.0
+name: "ganoam:dv:stream_reg_sim:0.1"
+description: "STREAM_REG DV sim target"
+filesets:
+  files_rtl:
+    depend:
+      - ganoam:ip:stream_reg
+
+  files_dv:
+    depend:
+      - ganoam:dv:stream_reg_test
+      - ganoam:dv:stream_reg_sva
+    files:
+      - tb.sv
+    file_type: systemVerilogSource
+
+targets:
+  sim: &sim_target
+    toplevel: tb
+    filesets:
+      - files_rtl
+      - files_dv
+    default_tool: verilator
+
+  # TODO: add a lint check cfg in `hw/top_earlgrey/lint/top_earlgrey_dv_lint_cfgs.hjson`
+  lint:
+    <<: *sim_target
