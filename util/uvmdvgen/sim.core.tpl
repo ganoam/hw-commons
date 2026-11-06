@@ -1,5 +1,6 @@
 CAPI=2:
 # Copyright lowRISC contributors (OpenTitan project).
+# Generated from lowRISC uvmdvgen templates; modifications by ganoam.
 # Licensed under the Apache License, Version 2.0, see LICENSE for details.
 # SPDX-License-Identifier: Apache-2.0
 name: "${vendor}:dv:${name}_sim:0.1"
@@ -23,7 +24,7 @@ targets:
     filesets:
       - files_rtl
       - files_dv
-    default_tool: vcs
+    default_tool: verilator
 
   # TODO: add a lint check cfg in `hw/top_earlgrey/lint/top_earlgrey_dv_lint_cfgs.hjson`
   lint:

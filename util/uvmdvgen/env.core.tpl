@@ -1,5 +1,6 @@
 CAPI=2:
 # Copyright lowRISC contributors (OpenTitan project).
+# Generated from lowRISC uvmdvgen templates; modifications by ganoam.
 # Licensed under the Apache License, Version 2.0, see LICENSE for details.
 # SPDX-License-Identifier: Apache-2.0
 name: "${vendor}:dv:${name}_env:0.1"
@@ -8,12 +9,12 @@ filesets:
   files_dv:
     depend:
 % if has_ral:
-      - lowrisc:dv:ralgen
+      - ganoam:dv:ralgen
 % endif
 % if is_cip:
-      - lowrisc:dv:cip_lib
+      - ganoam:dv:cip_lib
 % else:
-      - lowrisc:dv:dv_lib
+      - ganoam:dv:dv_lib
 % endif
 % for agent in env_agents:
       - ${vendor}:dv:${agent}_agent
