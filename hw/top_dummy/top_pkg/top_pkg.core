@@ -1,0 +1,16 @@
+CAPI=2:
+name: "ganoam:dv_constants:top_pkg"
+description: "Stub toplevel constants providing the virtual top_pkg for unit-level DV"
+virtual:
+  - ganoam:virtual_constants:top_pkg
+
+filesets:
+  files_dv:
+    files:
+      - top_pkg.sv
+    file_type: systemVerilogSource
+
+targets:
+  default:
+    filesets:
+      - files_dv
