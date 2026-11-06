@@ -16,3 +16,13 @@
 Notes
 - If/when autogenerating my own IPs: Take careto switch the ${vendor} and ${agent_vendor} correctly.
   Best not trust the user to set the vendor flag. try to look it up.
+
+Low-Prio:
+
+- [ ] Add
+      // macro includes
+      `include "uvm_macros.svh"
+      `include "dv_macros.svh"
+      to all the template classes which inherit their inclusions from the packages they are contained in.
+      this is technically a no-op, since they are guarded against re-inclusion.
+      But it makes my workspace's LSP happy.
