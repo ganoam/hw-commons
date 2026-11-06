@@ -9,13 +9,9 @@ filesets:
   files_dv:
     depend:
 % if has_ral:
-      - ganoam:dv:ralgen
+      - lowrisc:dv:ralgen
 % endif
-% if is_cip:
-      - ganoam:dv:cip_lib
-% else:
-      - ganoam:dv:dv_lib
-% endif
+      - lowrisc:dv:dv_lib
 % for agent in env_agents:
       - ${vendor}:dv:${agent}_agent
 % endfor
