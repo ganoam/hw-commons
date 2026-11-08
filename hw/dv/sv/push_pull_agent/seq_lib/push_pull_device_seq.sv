@@ -54,7 +54,12 @@ class push_pull_device_seq #(parameter int HostDataWidth = 32,
     push_pull_item #(HostDataWidth, DeviceDataWidth) req_q[$];
     fork
       forever begin : get_req
-        p_sequencer.req_analysis_fifo.get(req);
+        // workaround for verilator: spec-identity — fetch via p_sequencer's own
+        // item type spelling, then dynamic-cast into req (item_t is a typedef
+        // member of dv_reactive_sequencer — links where param ITEM_T doesn't)
+        push_pull_sequencer#(HostDataWidth, DeviceDataWidth)::item_t _req;
+        p_sequencer.req_analysis_fifo.get(_req);
+        void'($cast(req, _req));
         req_q.push_back(req);
       end : get_req
       forever begin : send_rsp

@@ -25,6 +25,12 @@ class dv_base_driver #(type ITEM_T     = uvm_sequence_item,
 
   CFG_T cfg;
 
+  // workaround for verilator: provider type for connect() in dv_base_agent —
+  // a typedef member links through DRIVER_T:: where param members (REQ/RSP)
+  // don't. ITEM_T/RSP_ITEM_T are bound to uvm_driver's REQ/RSP, so the node
+  // matches seq_item_port's formal exactly.
+  typedef uvm_port_base #(uvm_sqr_if_base #(ITEM_T, RSP_ITEM_T)) sqr_prov_t;
+
   extern function new (string name, uvm_component parent);
 
   // The run_phase task runs reset_signals() and get_and_drive() (described below) in parallel.

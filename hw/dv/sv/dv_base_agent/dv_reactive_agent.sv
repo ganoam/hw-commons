@@ -40,6 +40,12 @@ class dv_reactive_agent #(type CFG_T            = dv_reactive_agent_cfg,
   `uvm_component_param_utils(dv_reactive_agent #(CFG_T, DRIVER_T, HOST_DRIVER_T, DEVICE_DRIVER_T,
                                                  SEQUENCER_T, MONITOR_T, COV_T))
 
+  // workaround for verilator spec-identity: scoped provider types for connect()
+  // (typedefs live in dv_reactive_monitor — typedef members link through
+  // MONITOR_T:: where param members don't)
+  typedef MONITOR_T::req_port_base_t _mon_req_prov_t;
+  typedef MONITOR_T::rsp_port_base_t _mon_rsp_prov_t;
+
   extern function new (string name, uvm_component parent);
   extern function void connect_phase(uvm_phase phase);
 endclass
@@ -51,9 +57,13 @@ endfunction
 function void dv_reactive_agent::connect_phase(uvm_phase phase);
   super.connect_phase(phase);
   if (cfg.has_req_fifo) begin
-    monitor.req_analysis_port.connect(sequencer.req_analysis_fifo.analysis_export);
+    _mon_req_prov_t prov;
+    void'($cast(prov, sequencer.req_analysis_fifo.analysis_export));
+    monitor.req_analysis_port.connect(prov);
   end
   if (cfg.has_rsp_fifo) begin
-    monitor.rsp_analysis_port.connect(sequencer.rsp_analysis_fifo.analysis_export);
+    _mon_rsp_prov_t prov;
+    void'($cast(prov, sequencer.rsp_analysis_fifo.analysis_export));
+    monitor.rsp_analysis_port.connect(prov);
   end
 endfunction

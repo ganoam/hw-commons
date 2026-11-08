@@ -16,6 +16,11 @@ class dv_reactive_monitor #(type ITEM_T = uvm_sequence_item,
   // item will be sent to this port for seq when rsp phase is done (rsp_done is set)
   uvm_analysis_port #(RSP_ITEM_T) rsp_analysis_port;
 
+  // workaround for verilator: port provider types for connect() in
+  // dv_reactive_agent — typedef members link where param members don't.
+  typedef uvm_port_base #(uvm_tlm_if_base #(REQ_ITEM_T, REQ_ITEM_T)) req_port_base_t;
+  typedef uvm_port_base #(uvm_tlm_if_base #(RSP_ITEM_T, RSP_ITEM_T)) rsp_port_base_t;
+
   extern function new (string name, uvm_component parent);
   extern function void build_phase(uvm_phase phase);
 endclass

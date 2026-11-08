@@ -39,6 +39,11 @@ class dv_base_agent #(type CFG_T            = dv_base_agent_cfg,
   SEQUENCER_T sequencer;
   MONITOR_T   monitor;
 
+  // workaround for verilator spec-identity: scoped provider type for connect()
+  // (typedef lives in dv_base_driver — typedef members link through DRIVER_T::
+  // where param members don't)
+  typedef DRIVER_T::sqr_prov_t _drv_prov_t;
+
   extern function new (string name, uvm_component parent);
 
   extern function void build_phase(uvm_phase phase);
@@ -81,6 +86,8 @@ endfunction
 function void dv_base_agent::connect_phase(uvm_phase phase);
   super.connect_phase(phase);
   if (cfg.is_active && cfg.has_driver) begin
-    driver.seq_item_port.connect(sequencer.seq_item_export);
+    _drv_prov_t prov;
+    void'($cast(prov, sequencer.seq_item_export));
+    driver.seq_item_port.connect(prov);
   end
 endfunction

@@ -20,6 +20,11 @@ class dv_reactive_sequencer #(type ITEM_T     = uvm_sequence_item,
   uvm_tlm_analysis_fifo #(ITEM_T)     req_analysis_fifo;
   uvm_tlm_analysis_fifo #(RSP_ITEM_T) rsp_analysis_fifo;
 
+  // workaround for verilator: typedef members link through Spec#():: where
+  // param members don't (REFDTYPE unlink) — lets sequences name fifo item types
+  typedef ITEM_T     item_t;
+  typedef RSP_ITEM_T rsp_item_t;
+
   extern function new(string name, uvm_component parent);
   extern function void build_phase(uvm_phase phase);
 endclass

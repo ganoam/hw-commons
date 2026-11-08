@@ -37,7 +37,13 @@ class push_pull_agent #(
   function void connect_phase(uvm_phase phase);
     super.connect_phase(phase);
     if (cfg.if_mode == dv_utils_pkg::Device) begin
-      monitor.req_analysis_port.connect(sequencer.req_analysis_fifo.analysis_export);
+      // workaround for verilator: $cast avoids specialization-identity arg check.
+      // NB: MONITOR_T::REQ_ITEM_T would be the precise spelling, but it hits the
+      // inherited-param-scope bug; Spec#(...)::PARAM hits REFDTYPE unlink.
+      typedef push_pull_item#(HostDataWidth, DeviceDataWidth) _req_item_t;
+      uvm_port_base#(uvm_tlm_if_base#(_req_item_t, _req_item_t)) prov;
+      void'($cast(prov, sequencer.req_analysis_fifo.analysis_export));
+      monitor.req_analysis_port.connect(prov);
     end
   endfunction
 
