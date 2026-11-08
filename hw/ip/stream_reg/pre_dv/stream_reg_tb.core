@@ -1,0 +1,32 @@
+CAPI=2:
+# Copyright lowRISC contributors (OpenTitan project).
+# Licensed under the Apache License, Version 2.0, see LICENSE for details.
+# SPDX-License-Identifier: Apache-2.0
+name: "ganoam:pre_dv:stream_reg_tb:0"
+description: "Ad-hoc (pre-DV) stream_reg testbench for Verilator"
+filesets:
+  files_rtl:
+    depend:
+      - ganoam:ip:stream_reg
+    files:
+      - stream_reg_tb.sv
+    file_type: systemVerilogSource
+
+targets:
+  sim: &sim_target
+    toplevel: stream_reg_tb
+    filesets:
+      - files_rtl
+    default_tool: verilator
+    tools:
+      verilator:
+        mode: binary
+        verilator_options:
+          - "-Wno-fatal"
+          - "--timing"
+          - "-j 16"
+          - "--trace-fst"
+          - "--trace-structs"
+
+  lint:
+    <<: *sim_target
