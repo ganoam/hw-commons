@@ -1,0 +1,23 @@
+CAPI=2:
+
+name: ganoam:uvm_pure:stream_inout_test_pkg:0
+description: DV Package for stream inout test
+
+filesets:
+  files_tb:
+    depend:
+      - ganoam:dv:uvm_pkg
+      - ganoam:uvm_pure:stream_agent_pkg
+      - ganoam:uvm_pure:stream_inout_env_pkg
+    files:
+      - stream_inout_test.svh: {is_include_file: true}
+      - stream_inout_test_config.svh: {is_include_file: true}
+      - stream_inout_test_sequence_list.svh: {is_include_file: true}
+      - seqlib/stream_inout_test_base_vsequence.svh: {is_include_file: true}
+      - stream_inout_test_pkg.sv
+    file_type: systemVerilogSource
+
+targets:
+  default:
+    filesets:
+      - files_tb

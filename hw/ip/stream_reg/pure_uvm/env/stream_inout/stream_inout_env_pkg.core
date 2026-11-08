@@ -1,0 +1,23 @@
+CAPI=2:
+
+name: ganoam:uvm_pure:stream_inout_env_pkg:0
+description: DV Package for stream inout environment
+
+filesets:
+  files_tb:
+    depend:
+      - ganoam:dv:uvm_pkg
+      - ganoam:uvm_pure:stream_agent_pkg
+    files:
+      - stream_inout_env.svh : {is_include_file: true}
+      - stream_inout_env_config.svh : {is_include_file: true}
+      - stream_inout_equal_scoreboard.svh : {is_include_file: true}
+      - stream_inout_equal_scoreboard_config.svh : {is_include_file: true}
+      - stream_inout_env_pkg.sv
+
+    file_type: systemVerilogSource
+
+targets:
+  default:
+    filesets:
+      - files_tb

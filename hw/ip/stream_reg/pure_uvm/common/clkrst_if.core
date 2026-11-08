@@ -1,0 +1,18 @@
+CAPI=2:
+
+name: ganoam:uvm_pure:clkrst_if:0
+description: DV Package for clock/reset interface
+
+filesets:
+  files_tb:
+    depend:
+      - ganoam:dv:uvm_pkg
+    files:
+      - clkrst_if.sv
+
+    file_type: systemVerilogSource
+
+targets:
+  default:
+    filesets:
+      - files_tb

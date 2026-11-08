@@ -1,0 +1,28 @@
+CAPI=2:
+
+name: ganoam:uvm_pure:stream_agent_pkg:0
+description: DV Package for stream agent
+
+filesets:
+  files_tb:
+    depend:
+      - ganoam:dv:uvm_pkg
+      # - ganoam:uvm_pure:random_pkg
+      - ganoam:uvm_pure:clkrst_if
+      - "lowrisc:dv:dv_macros"
+    files:
+      - stream_agent.svh : {is_include_file: true}
+      - stream_agent_config.svh : {is_include_file: true}
+      - stream_driver.svh : {is_include_file: true}
+      - stream_item.svh : {is_include_file: true}
+      - stream_monitor.svh : {is_include_file: true}
+      - stream_sequence_list.svh : {is_include_file: true}
+      - seqlib/stream_base_sequence.svh : {is_include_file: true}
+      - stream_agent_pkg.sv
+      - stream_if.sv
+    file_type: systemVerilogSource
+
+targets:
+  default:
+    filesets:
+      - files_tb

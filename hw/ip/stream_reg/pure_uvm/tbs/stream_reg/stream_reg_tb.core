@@ -1,0 +1,67 @@
+CAPI=2:
+
+name: ganoam:uvm_pure:stream_reg_tb:0
+description: Stream Register Test Bench
+
+filesets:
+  files_rtl:
+    depend:
+      - ganoam:ip:stream_reg
+
+  files_tb:
+    files:
+      - tb.sv
+      # - stream_reg_harness.sv
+    file_type: systemVerilogSource
+    depend:
+      - ganoam:dv:uvm_pkg
+      - ganoam:uvm_pure:stream_agent_pkg
+      - ganoam:uvm_pure:stream_inout_env_pkg
+      - ganoam:uvm_pure:stream_inout_test_pkg
+
+targets:
+  default: &default
+    filesets:
+      - files_rtl
+    toplevel: stream_reg
+
+  sim:
+    <<: *default
+    description: Simulate the design
+    default_tool: verilator
+    filesets_append:
+      - files_tb
+    toplevel: tb
+    tools:
+      verilator:
+        mode: binary
+        verilator_options:
+          - "-Wno-fatal"
+          - "--timing"
+          - "-j 16"
+          - "+incdir+$UVM_HOME"
+          - "+define+UVM_NO_DPI"
+          - "--trace-fst"
+          - "--trace-structs"
+
+  lint:
+    <<: *default
+    description: Simulate the design
+    default_tool: verilator
+    filesets_append:
+      - files_tb
+    toplevel: tb
+    tools:
+      verilator:
+        mode: lint-only
+        verilator_options:
+          - "--diagnostics-sarif"
+          #- "-Wno-fatal"
+          - "-Wall"
+          - "--timing"
+          - "-j 16"
+          - "+incdir+$UVM_HOME"
+          - "+define+UVM_NO_DPI"
+          # - "--debug"
+          #- "--debugi-V3Width 5"
+          #- "--gdbbt"
