@@ -18,9 +18,7 @@ package stream_reg_env_pkg;
   `include "dv_macros.svh"
 
   // parameters
-
-  // types
-  typedef dv_base_reg_block stream_reg_reg_block;
+  parameter int unsigned DataWidth = 32;
 
   // functions
 

@@ -12,12 +12,16 @@ class stream_reg_scoreboard extends dv_base_scoreboard #(
   // local variables
 
   // TLM agent fifos
-  uvm_tlm_analysis_fifo #(push_pull_item) in_fifo;
-  uvm_tlm_analysis_fifo #(push_pull_item) out_fifo;
+  uvm_tlm_analysis_fifo #(push_pull_item#(.HostDataWidth(DataWidth), .DeviceDataWidth(DataWidth))) in_fifo;
+  uvm_tlm_analysis_fifo #(push_pull_item#(.HostDataWidth(DataWidth), .DeviceDataWidth(DataWidth))) out_fifo;
 
   // local queues to hold incoming packets pending comparison
-  push_pull_item expected_items[$];
-  //push_pull_item push_pull_q[$];
+  push_pull_item#(.HostDataWidth(DataWidth), .DeviceDataWidth(DataWidth)) expected_items[$];
+  push_pull_item#(.HostDataWidth(DataWidth), .DeviceDataWidth(DataWidth)) actual_items[$];
+
+  // Statistic counter
+  int unsigned       num_of_check_pass;
+  int unsigned       num_of_check_fail;
 
   `uvm_component_new
 
@@ -40,7 +44,7 @@ class stream_reg_scoreboard extends dv_base_scoreboard #(
   endtask
 
   virtual task process_in_fifo();
-    push_pull_item item;
+    push_pull_item#(.HostDataWidth(DataWidth), .DeviceDataWidth(DataWidth)) item;
     forever begin
       in_fifo.get(item);
       expected_items.push_back(item);
@@ -49,11 +53,12 @@ class stream_reg_scoreboard extends dv_base_scoreboard #(
   endtask
 
   virtual task process_out_fifo();
-    push_pull_item item;
+    push_pull_item#(.HostDataWidth(DataWidth), .DeviceDataWidth(DataWidth)) item;
+    bit check_pass;
     forever begin
       out_fifo.get(item);
-      DV_CHECK(expected_items.size(), $sformatf("unexpected item:\n%0s", item.sprint));
-      if (expected_items.size() >= 0) begin
+      actual_items.push_back(item);
+      if (expected_items.size() > 0) begin
         if (actual_items[0].compare(expected_items[0])) begin
           `uvm_info(get_full_name(), $sformatf(
                     "IN ORDER CHECK PASS:\n Expected item:\n%0s Actual item:\n%0s",

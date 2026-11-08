@@ -27,6 +27,18 @@ targets:
       - files_dv
     default_tool: verilator
 
+    tools:
+      verilator:
+        mode: binary
+        verilator_options:
+          - "-Wno-fatal"
+          - "--timing"
+          - "-j 16"
+          - "+define+UVM"
+          - "--trace-fst"
+          - "--trace-structs"
+
+
   # TODO: add a lint check cfg in `hw/top_earlgrey/lint/top_earlgrey_dv_lint_cfgs.hjson`
   lint:
     <<: *sim_target

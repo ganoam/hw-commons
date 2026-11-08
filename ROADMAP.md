@@ -12,6 +12,7 @@
 - [ ] Evaluate lowrisc methodology
     - [ ] vs. my own research?
     - [ ] Cut down all unnecessary fluff. (what is?)
+    - [ ] Fix parameter ripple: full_width agents + info_t feasible?
 
 Notes
 - If/when autogenerating my own IPs: Take careto switch the ${vendor} and ${agent_vendor} correctly.
