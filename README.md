@@ -1,8 +1,52 @@
-# dv - Design Verification Methodology and Infrastructure
+# hw-commons - Design Verification Methodology, Infrastructure and IP library
 
-This repository defines a reusable design verification methodology
-for FPGA and ASIC projects. It hosts shared verification infrastructure
-as well as a library of low-level reusable design IP (primitives).
+A reusable DV **methodology + infrastructure + primitive-IP library**,
+built as an **independent framework on top of the lowRISC/OpenTitan baseline.**
+
+- Aims to provide a project-independent library of fully verified IP
+- Uses open-source tools only (OpenTitan uses vcs simulator, we will try to use verilator)
+
+---
+
+## Current state
+
+| already in the repo | gives you | source |
+|---|---|---|
+| `hw/dv/sv/` | agents, scoreboard, RAL bases, `csr_utils`, `common_ifs` | opentitan [1] |
+| `util/reggen`, `util/uvmdvgen` | register + env generators | opentitan [1] |
+| `hw/ip/prim(+generic)` | reusable low-level design IP | opentitan |
+| `doc/contributing/dv/` | methodology documents | opentitan |
+| `deps/uvm-verilator` | UVM-on-Verilator port | uvm-verilator |
+| `hw/ip/stream_reg/` | pilot IP: RTL + testplan | ganoam |
+| `./stream_reg/pre_dv` | ad-hoc TB | ganoam |
+| `./dv` | OT-generated env + hand edits | ganoam |
+| `hw/uvm-pure/` | hand-rolled UVM bench | ganoam |
+| `vlt-debug/` | Verilator bug repros + workaround docs | ganoam (+ AI) |
+
+[1] with  Verilator workarounds in `dv_base_agent`/`push_pull_agent`, minor uvmdvgen vendor/template fixes
+
+---
+## Why it exists: For me, to learn.
+
+- Verification has not been taught in enough detail for my taste.
+- So I am building this project to teach myself.
+- Potentially to be useful, one day.
+---
+## The plan
+
+- ✔ **Baseline**:  lowRISC methodology, libraries, generators vendored;
+    FuseSoC + Verilator flow up, scratch benches running
+- ▸ **Pilot**: `stream_reg`
+    - ✔ Pure-UVM testbench running
+    - First module to exercise the opentitan flow
+    - Test verilator maturity, [find bugs](https://github.com/verilator/verilator/issues?q=is%3Aissue+author%3Aganoam), [fixes](https://github.com/verilator/verilator/pulls?q=is%3Apr+author%3Aganoam), and workarounds
+- → **Grow the library**:
+    - Explore and exercise and opentitan frameworks, improve verilator compatibilities
+    - Not yet used: `mem_model`, `csr_utils`, RAL layers.
+- → **Consolidate Guides and Instructions**:
+    - Make it easy for people to find their way
+    - Encourage other engineers to use and contribute
+
 
 ## Getting Started
 
@@ -40,7 +84,7 @@ $ fusesoc --cores-root=. run --target=sim ganoam:uvm_pure:stream_reg_tb
 
 The content of this repo heavily builds upon, and is in some cases directly
 taken from [lowRISC](https://github.com/lowRISC) repositories
-(lowRISC contributors — see `NOTICE` and the license texts in `LICENSES/`).
+(lowRISC contributors:  see `NOTICE` and the license texts in `LICENSES/`).
 It serves as the baseline on which an independent DV methodology is
 being built. Future work may modify and / or build upon the lowRISC work.
 The full git history of all files will remain available, documenting original
