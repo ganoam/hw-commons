@@ -12,19 +12,19 @@ class stream_reg_scoreboard extends dv_base_scoreboard #(
   // local variables
 
   // TLM agent fifos
-  uvm_tlm_analysis_fifo #(push_pull_item) push_pull_fifo;
-  uvm_tlm_analysis_fifo #(push_pull_item) push_pull_fifo;
+  uvm_tlm_analysis_fifo #(push_pull_item) in_fifo;
+  uvm_tlm_analysis_fifo #(push_pull_item) out_fifo;
 
   // local queues to hold incoming packets pending comparison
-  push_pull_item push_pull_q[$];
-  push_pull_item push_pull_q[$];
+  push_pull_item expected_items[$];
+  //push_pull_item push_pull_q[$];
 
   `uvm_component_new
 
   function void build_phase(uvm_phase phase);
     super.build_phase(phase);
-    push_pull_fifo = new("push_pull_fifo", this);
-    push_pull_fifo = new("push_pull_fifo", this);
+    in_fifo = new("in_fifo", this);
+    out_fifo = new("out_fifo", this);
   endfunction
 
   function void connect_phase(uvm_phase phase);
@@ -34,23 +34,46 @@ class stream_reg_scoreboard extends dv_base_scoreboard #(
   task run_phase(uvm_phase phase);
     super.run_phase(phase);
     fork
-      process_push_pull_fifo();
-      process_push_pull_fifo();
+      process_in_fifo();
+      process_out_fifo();
     join_none
   endtask
 
-  virtual task process_push_pull_fifo();
+  virtual task process_in_fifo();
     push_pull_item item;
     forever begin
-      push_pull_fifo.get(item);
+      in_fifo.get(item);
+      expected_items.push_back(item);
       `uvm_info(`gfn, $sformatf("received push_pull item:\n%0s", item.sprint()), UVM_HIGH)
     end
   endtask
 
-  virtual task process_push_pull_fifo();
+  virtual task process_out_fifo();
     push_pull_item item;
     forever begin
-      push_pull_fifo.get(item);
+      out_fifo.get(item);
+      DV_CHECK(expected_items.size(), $sformatf("unexpected item:\n%0s", item.sprint));
+      if (expected_items.size() >= 0) begin
+        if (actual_items[0].compare(expected_items[0])) begin
+          `uvm_info(get_full_name(), $sformatf(
+                    "IN ORDER CHECK PASS:\n Expected item:\n%0s Actual item:\n%0s",
+                    expected_items[0].sprint(), actual_items[0].sprint()), UVM_HIGH)
+           num_of_check_pass++;
+           check_pass = 1'b1;
+        end else begin
+          `uvm_error(get_full_name(), $sformatf(
+                     "IN ORDER CHECK FAIL:\n Expected item:\n%0s Actual item:\n%0s",
+                     expected_items[0].sprint(), actual_items[0].sprint()))
+           num_of_check_fail++;
+           check_pass = 1'b0;
+        end
+      end else begin
+          `uvm_error(get_full_name(), $sformatf(
+                     "IN ORDER CHECK FAIL:\n Expected item:\n%0s Actual item:\n%0s",
+                     expected_items[0].sprint(), actual_items[0].sprint()))
+      end
+
+
       `uvm_info(`gfn, $sformatf("received push_pull item:\n%0s", item.sprint()), UVM_HIGH)
     end
   endtask

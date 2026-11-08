@@ -17,23 +17,28 @@ module tb;
   wire clk, rst_n;
 
   // interfaces
-  clk_rst_if clk_rst_if(.clk(clk), .rst_n(rst_n));
-  push_pull_if push_pull_if();
-  push_pull_if push_pull_if();
+  clk_rst_if u_clk_rst_if(.clk(clk), .rst_n(rst_n));
+  push_pull_if u_in_if(.clk(clk), .rst_n(rst_n));
+  push_pull_if u_out_if(.clk(clk), .rst_n(rst_n));
 
 
   // dut
   stream_reg dut (
-    .clk_i                (clk      ),
-    // TODO: add remaining IOs and hook them
+    .clk_i(clk),
+    .in_valid_i(u_in_if.valid),
+    .in_ready_o(u_in_if.ready),
+    .in_data_i(u_in_if.data),
+    .out_valid_o(u_out_if.valid),
+    .out_ready_i(u_out_if.ready),
+    .out_data_o(u_out_if.data)
   );
 
   initial begin
     // drive clk and rst_n from clk_if
     clk_rst_if.set_active();
-    uvm_config_db#(virtual clk_rst_if)::set(null, "*.env", "clk_rst_vif", clk_rst_if);
-    uvm_config_db#(virtual push_pull_if)::set(null, "*.env.m_push_pull_agent*", "vif", push_pull_if);
-    uvm_config_db#(virtual push_pull_if)::set(null, "*.env.m_push_pull_agent*", "vif", push_pull_if);
+    uvm_config_db#(virtual clk_rst_if)::set(null, "*.env", "clk_rst_vif", u_clk_rst_if);
+    uvm_config_db#(virtual push_pull_if)::set(null, "*.env.m_in_agent*", "vif", u_in_if);
+    uvm_config_db#(virtual push_pull_if)::set(null, "*.env.m_out_agent*", "vif", u_out_if);
     $timeformat(-12, 0, " ps", 12);
     run_test();
   end

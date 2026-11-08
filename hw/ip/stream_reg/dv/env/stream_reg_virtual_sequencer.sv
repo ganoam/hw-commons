@@ -9,8 +9,8 @@ class stream_reg_virtual_sequencer extends dv_base_virtual_sequencer #(
   );
   `uvm_component_utils(stream_reg_virtual_sequencer)
 
-  push_pull_sequencer push_pull_sequencer_h;
-  push_pull_sequencer push_pull_sequencer_h;
+  push_pull_sequencer in_sequencer_h;
+  push_pull_sequencer out_sequencer_h;
 
   `uvm_component_new
 

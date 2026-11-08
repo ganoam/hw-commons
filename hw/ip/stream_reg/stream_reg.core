@@ -1,6 +1,6 @@
 CAPI=2:
 
-name: ganoam:util:stream_reg:0
+name: ganoam:ip:stream_reg:0
 description: Skid buffer with stream interface
 
 filesets:
@@ -8,7 +8,7 @@ filesets:
     depend:
       - lowrisc:prim:assert:0.1
     files:
-      - stream_reg.sv
+      - rtl/stream_reg.sv
 
     file_type: systemVerilogSource
 

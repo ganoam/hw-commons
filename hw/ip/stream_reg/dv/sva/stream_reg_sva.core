@@ -7,8 +7,6 @@ name: "ganoam:dv:stream_reg_sva:0.1"
 description: "STREAM_REG assertion modules and bind file."
 filesets:
   files_dv:
-    depend:
-      - ganoam:tlul:headers
     files:
       - stream_reg_bind.sv
     file_type: systemVerilogSource
