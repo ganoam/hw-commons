@@ -80,6 +80,10 @@ submodule):
 $ fusesoc --cores-root=. run --target=sim ganoam:uvm_pure:stream_reg_tb
 ```
 
+> [!WARNING]
+> For the time being, I do not expect outside contributers.
+> Breaking changes and git history rewrites are possible at any time.
+
 ## Attribution
 
 The content of this repo heavily builds upon, and is in some cases directly
