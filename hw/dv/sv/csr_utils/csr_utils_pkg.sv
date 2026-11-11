@@ -1,6 +1,7 @@
 // Copyright lowRISC contributors (OpenTitan project).
 // Licensed under the Apache License, Version 2.0, see LICENSE for details.
 // SPDX-License-Identifier: Apache-2.0
+// Modifications by ganoam.
 
 package csr_utils_pkg;
   // dep packages
@@ -347,6 +348,11 @@ package csr_utils_pkg;
       status = UVM_IS_OK;
       return;
     end
+    // Workaround for the Vlt output-arg rule: output formals may not be
+    // bound into a timed class task under fork; copy out locals after join.
+    begin
+      uvm_reg_data_t l_value;
+      uvm_status_e   l_status;
     fork
       begin : isolation_fork
         csr_field_t   csr_or_fld;
@@ -356,16 +362,16 @@ package csr_utils_pkg;
             csr_or_fld = decode_csr_or_field(ptr);
             if (user_ftdr != null) csr_or_fld.csr.set_frontdoor(user_ftdr);
             if (csr_or_fld.field != null) begin
-              csr_or_fld.field.read(.status(status), .value(value), .path(path), .map(map),
+              csr_or_fld.field.read(.status(l_status), .value(l_value), .path(path), .map(map),
                                     .prior(100));
             end else begin
-              csr_or_fld.csr.read(.status(status), .value(value), .path(path), .map(map),
+              csr_or_fld.csr.read(.status(l_status), .value(l_value), .path(path), .map(map),
                                   .prior(100));
             end
             // TODO: need to remove the frontdoor to switch back to the default,
             // but this doesn't work: if (user_ftdr != null) ptr.set_frontdoor(null);
             if (check == UVM_CHECK && !under_reset) begin
-              `DV_CHECK_EQ(status, UVM_IS_OK,
+              `DV_CHECK_EQ(l_status, UVM_IS_OK,
                            $sformatf("trying to read csr/field %0s", ptr.get_full_name()),
                            error, $sformatf("%m"))
             end
@@ -380,6 +386,9 @@ package csr_utils_pkg;
         disable fork;
       end : isolation_fork
     join
+      value = l_value;
+      status = l_status;
+    end
   endtask
 
   // backdoor read csr
@@ -653,6 +662,10 @@ package csr_utils_pkg;
                             input  uint               timeout_ns = default_timeout_ns,
                             input  uvm_reg_map        map = null,
                             input  uvm_reg_frontdoor  user_ftdr = default_user_frontdoor);
+    // Workaround for the Vlt output-arg rule: output formal `data` may not
+    // be bound into a timed class task under fork; copy out after join.
+    begin
+      bit[31:0] l_data;
     fork
       begin : isolating_fork
         uvm_status_e status;
@@ -661,7 +674,7 @@ package csr_utils_pkg;
           begin
             increment_outstanding_access();
             if (user_ftdr != null) ptr.set_frontdoor(user_ftdr);
-            ptr.read(.status(status), .offset(offset), .value(data), .map(map), .prior(100));
+            ptr.read(.status(status), .offset(offset), .value(l_data), .map(map), .prior(100));
             // TODO: need to remove the frontdoor to switch back to the default,
             // but this doesn't work: if (user_ftdr != null) ptr.set_frontdoor(null);
             if (check == UVM_CHECK && !under_reset) begin
@@ -680,6 +693,8 @@ package csr_utils_pkg;
         disable fork;
       end : isolating_fork
     join
+      data = l_data;
+    end
   endtask : mem_rd_sub
 
   task automatic mem_wr(input uvm_mem             ptr,

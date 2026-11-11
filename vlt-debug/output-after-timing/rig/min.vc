@@ -1,0 +1,63 @@
+--Mdir .
++incdir+../../../deps/uvm-verilator/src/base
+-CFLAGS -I../../../deps/uvm-verilator/src/base
++incdir+../../../deps/uvm-verilator/src/comps
+-CFLAGS -I../../../deps/uvm-verilator/src/comps
++incdir+../../../deps/uvm-verilator/src/dap
+-CFLAGS -I../../../deps/uvm-verilator/src/dap
++incdir+../../../deps/uvm-verilator/src/deprecated/macros
+-CFLAGS -I../../../deps/uvm-verilator/src/deprecated/macros
++incdir+../../../deps/uvm-verilator/src/dpi
+-CFLAGS -I../../../deps/uvm-verilator/src/dpi
++incdir+../../../deps/uvm-verilator/src/macros
+-CFLAGS -I../../../deps/uvm-verilator/src/macros
++incdir+../../../deps/uvm-verilator/src/reg
+-CFLAGS -I../../../deps/uvm-verilator/src/reg
++incdir+../../../deps/uvm-verilator/src/reg/sequences
+-CFLAGS -I../../../deps/uvm-verilator/src/reg/sequences
++incdir+../../../deps/uvm-verilator/src/seq
+-CFLAGS -I../../../deps/uvm-verilator/src/seq
++incdir+../../../deps/uvm-verilator/src/tlm1
+-CFLAGS -I../../../deps/uvm-verilator/src/tlm1
++incdir+../../../deps/uvm-verilator/src/tlm2
+-CFLAGS -I../../../deps/uvm-verilator/src/tlm2
++incdir+../../../deps/uvm-verilator/src
+-CFLAGS -I../../../deps/uvm-verilator/src
++incdir+../../../hw/dv/sv/dv_utils
+-CFLAGS -I../../../hw/dv/sv/dv_utils
++incdir+../../../hw/ip/prim/rtl
+-CFLAGS -I../../../hw/ip/prim/rtl
++incdir+../../../hw/dv/sv/dv_base_agent
+-CFLAGS -I../../../hw/dv/sv/dv_base_agent
++incdir+../../../hw/dv/sv/dv_base_reg
+-CFLAGS -I../../../hw/dv/sv/dv_base_reg
++incdir+../../../hw/dv/sv/csr_utils
+-CFLAGS -I../../../hw/dv/sv/csr_utils
++incdir+../../../hw/dv/sv/dv_lib
+-CFLAGS -I../../../hw/dv/sv/dv_lib
++incdir+../../../hw/dv/sv/push_pull_agent
+-CFLAGS -I../../../hw/dv/sv/push_pull_agent
++incdir+../../../hw/dv/sv/push_pull_agent/seq_lib
+-CFLAGS -I../../../hw/dv/sv/push_pull_agent/seq_lib
+../../../hw/lint/tools/verilator/common.vlt
+../../../hw/ip/prim/lint/prim_assert.vlt
+../../../hw/top_dummy/top_pkg/top_pkg.sv
+../../../deps/uvm-verilator/src/uvm_pkg.sv
+../../../hw/dv/sv/common_ifs/pins_if.sv
+../../../hw/dv/sv/str_utils/str_utils_pkg.sv
+../../../hw/dv/sv/bus_params_pkg/bus_params_pkg.sv
+../../../hw/dv/sv/common_ifs/common_ifs_pkg.sv
+../../../hw/dv/sv/common_ifs/clk_if.sv
+../../../hw/dv/sv/common_ifs/clk_rst_if.sv
+../../../hw/ip/prim/rtl/prim_mubi_pkg.sv
+../../../hw/ip/prim/rtl/prim_util_pkg.sv
+../../../hw/dv/sv/dv_utils/dv_test_status_pkg.sv
+../../../hw/dv/sv/dv_utils/dv_utils_pkg.sv
+../../../hw/dv/sv/dv_base_agent/dv_base_agent_pkg.sv
+../../../hw/dv/sv/dv_base_reg/dv_base_reg_pkg.sv
+../../../hw/dv/sv/csr_utils/csr_utils_pkg.sv
+../../../hw/dv/sv/dv_lib/dv_lib_pkg.sv
+../../../hw/dv/sv/push_pull_agent/push_pull_if.sv
+../../../hw/dv/sv/push_pull_agent/push_pull_agent_pkg.sv
+
+min_tb.sv
