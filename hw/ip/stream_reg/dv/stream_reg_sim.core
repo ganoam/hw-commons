@@ -37,6 +37,7 @@ targets:
           - "+define+UVM"
           - "--trace-fst"
           - "--trace-structs"
+          - "--vpi"
 
 
   # TODO: add a lint check cfg in `hw/top_earlgrey/lint/top_earlgrey_dv_lint_cfgs.hjson`
