@@ -33,7 +33,9 @@ class csr_aliasing_seq extends csr_base_seq;
 
   // Write random values to each register in the list, running the sequences in parallel for maximum
   // throughput.
-  extern local task randomize_chunk(const ref uvm_reg registers[$]);
+  // Pass-by-value: a const-ref actual bound into a forked process generates
+  // non-const C++ refs in Vlt output (like read_back_chunk below).
+  extern local task randomize_chunk(uvm_reg registers[$]);
 
   // Read back csr using csr_rd_check and checking against the register model. Mask the comparison
   // using get_mask_excl_fields (to avoid checking the values of fields that are not modelled).
@@ -127,7 +129,7 @@ task csr_aliasing_seq::randomize_register(uvm_reg csr);
   csr_wr(.ptr(csr), .value(wdata), .predict(!external_checker));
 endtask
 
-task csr_aliasing_seq::randomize_chunk(const ref uvm_reg registers[$]);
+task csr_aliasing_seq::randomize_chunk(uvm_reg registers[$]);
   fork : isolation_fork begin
     foreach (registers[i]) begin
       automatic uvm_reg _reg = registers[i];
