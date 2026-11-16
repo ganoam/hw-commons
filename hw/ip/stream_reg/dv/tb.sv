@@ -43,6 +43,10 @@ module tb;
     uvm_config_db#(virtual push_pull_if#(.HostDataWidth(DataWidth), .DeviceDataWidth(DataWidth)))::set(null, "*.env.m_in_agent*", "vif", u_in_if);
     uvm_config_db#(virtual push_pull_if#(.HostDataWidth(DataWidth), .DeviceDataWidth(DataWidth)))::set(null, "*.env.m_out_agent*", "vif", u_out_if);
     $timeformat(-12, 0, " ps", 12);
+
+    $dumpfile("dump.fst");
+    $dumpvars(0, tb);
+
     run_test();
   end
 
