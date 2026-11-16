@@ -19,6 +19,10 @@ class stream_reg_base_test extends dv_base_test #(
   // stream_reg_env:     env
 
   virtual function void build_phase(uvm_phase phase);
+    // use modified item; constrained d_data to '0.
+    push_pull_agent_pkg::push_pull_item#(.HostDataWidth(DataWidth), .DeviceDataWidth(DataWidth))::type_id::set_type_override(
+       stream_reg_pp_item::get_type());
+
     super.build_phase(phase);
   endfunction
   // the base class also looks up UVM_TEST_SEQ plusarg to create and run that seq in
