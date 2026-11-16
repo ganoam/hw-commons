@@ -33,7 +33,7 @@ module tb;
     .in_data_i(u_in_if.h_data),
     .out_valid_o(u_out_if.valid),
     .out_ready_i(u_out_if.ready),
-    .out_data_o(u_out_if.d_data)
+    .out_data_o(u_out_if.h_data)
   );
 
   initial begin
