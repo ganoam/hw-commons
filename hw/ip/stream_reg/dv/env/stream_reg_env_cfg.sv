@@ -5,10 +5,12 @@
 
 class stream_reg_env_cfg extends dv_base_env_cfg;
 
+  `include "uvm_macros.svh"
+  `include "dv_macros.svh"
+
   // ext component cfgs
   rand push_pull_agent_cfg#(.HostDataWidth(DataWidth), .DeviceDataWidth(DataWidth)) m_in_agent_cfg;
   rand push_pull_agent_cfg#(.HostDataWidth(DataWidth), .DeviceDataWidth(DataWidth)) m_out_agent_cfg;
-  bit has_ral = 1'b0;
 
   `uvm_object_utils_begin(stream_reg_env_cfg)
     `uvm_field_object(m_in_agent_cfg, UVM_DEFAULT)
@@ -18,10 +20,18 @@ class stream_reg_env_cfg extends dv_base_env_cfg;
   `uvm_object_new
 
   virtual function void initialize(bit inherit_ral_models = 1'b0);
-    // create push_pull agent config obj
-    m_in_agent_cfg = push_pull_agent_cfg#(.HostDataWidth(DataWidth), .DeviceDataWidth(DataWidth))::type_id::create("m_in_agent_cfg");
-    // create push_pull agent config obj
+    is_initialized = 1'b1;
+    ral_model_names.delete(); // no csr in stream_reg
+
+    m_in_agent_cfg  = push_pull_agent_cfg#(.HostDataWidth(DataWidth), .DeviceDataWidth(DataWidth))::type_id::create("m_in_agent_cfg");
     m_out_agent_cfg = push_pull_agent_cfg#(.HostDataWidth(DataWidth), .DeviceDataWidth(DataWidth))::type_id::create("m_out_agent_cfg");
+
+    m_in_agent_cfg.agent_type  = PushAgent;
+    m_out_agent_cfg.agent_type = PushAgent;
+
+    m_in_agent_cfg.in_bidirectional_mode = 1'b0;
+    m_out_agent_cfg.in_bidirectional_mode = 1'b0;
+
   endfunction
 
 endclass
