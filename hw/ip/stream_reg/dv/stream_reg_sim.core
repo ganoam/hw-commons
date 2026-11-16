@@ -38,8 +38,22 @@ targets:
           - "--trace-fst"
           - "--trace-structs"
           - "--vpi"
-
+          - "-CFLAGS -O0"            # lower optimization flag: faster builds.
+          - "-LDFLAGS -fuse-ld=mold" # Faster linker: sudo apt install mold / or just remove.
+          - "-skip-identical"
 
   # TODO: add a lint check cfg in `hw/top_earlgrey/lint/top_earlgrey_dv_lint_cfgs.hjson`
   lint:
-    <<: *sim_target
+    toplevel: tb
+    filesets:
+      - files_rtl
+      - files_dv
+    default_tool: verilator
+
+    tools:
+      verilator:
+        mode: lint-only
+        verilator_options:
+          - "-Wno-fatal"
+          - "--timing"
+          - "+define+UVM"
