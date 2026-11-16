@@ -32,6 +32,9 @@ class stream_reg_env_cfg extends dv_base_env_cfg;
     m_in_agent_cfg.in_bidirectional_mode = 1'b0;
     m_out_agent_cfg.in_bidirectional_mode = 1'b0;
 
+    m_in_agent_cfg.if_mode = Host;
+    m_out_agent_cfg.if_mode = Device;
+
   endfunction
 
 endclass
