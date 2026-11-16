@@ -15,6 +15,7 @@ class stream_reg_base_vseq extends dv_base_vseq #(
 
   // various knobs to enable certain routines
   bit do_stream_reg_init = 1'b1;
+  int num_trans = 10;
 
   `uvm_object_new
 
@@ -33,23 +34,12 @@ class stream_reg_base_vseq extends dv_base_vseq #(
     //`uvm_error(`gfn, "FIXME")
   endtask
 
-  push_pull_item item;
   virtual task body();
-    item = push_pull_item::type_id::create("item", /*empty*/, get_full_name);
+    push_pull_host_seq #(.HostDataWidth(DataWidth), .DeviceDataWidth(DataWidth)) m_host_seq;
+    m_host_seq = push_pull_host_seq #(.HostDataWidth(DataWidth), .DeviceDataWidth(DataWidth))::type_id::create("m_host_seq");
+    m_host_seq.num_trans = num_trans;
+    m_host_seq.start(p_sequencer.in_sequencer_h);
 
-    forever begin
-      repeat(num_trans) begin
-        start_item(item);
-        `uvm_info("start_item" ,$sformatf("type=%s null=%0b str =%s", item.get_type_name(), (item == null), item.convert2string()) , UVM_NONE)
-        // `uvm_info("start_item" ,$sformatf("item: %s", item.convert2string()) , UVM_NONE)
-        if (!item.randomize()) begin
-          `uvm_fatal("RAND", $sformatf("Randomization failed in class @s", this.get_type_name()))
-        end
-        finish_item(item);
-        `uvm_info("finish_item" ,"... ", UVM_NONE)
-      end
-      //if (!eternal) break;
-    end
   endtask
 
 endclass : stream_reg_base_vseq
