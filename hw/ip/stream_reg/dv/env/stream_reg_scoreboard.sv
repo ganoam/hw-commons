@@ -7,6 +7,8 @@ class stream_reg_scoreboard extends dv_base_scoreboard #(
     .CFG_T(stream_reg_env_cfg),
     .COV_T(stream_reg_env_cov)
   );
+  `include "uvm_macros.svh"
+  `include "dv_macros.svh"
   `uvm_component_utils(stream_reg_scoreboard)
 
   // local variables

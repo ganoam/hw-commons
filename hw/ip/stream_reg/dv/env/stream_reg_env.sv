@@ -9,6 +9,8 @@ class stream_reg_env extends dv_base_env #(
     .VIRTUAL_SEQUENCER_T(stream_reg_virtual_sequencer),
     .SCOREBOARD_T       (stream_reg_scoreboard)
   );
+  `include "uvm_macros.svh"
+  `include "dv_macros.svh"
   `uvm_component_utils(stream_reg_env)
 
   push_pull_agent #(.HostDataWidth(DataWidth), .DeviceDataWidth(DataWidth)) m_in_agent;
