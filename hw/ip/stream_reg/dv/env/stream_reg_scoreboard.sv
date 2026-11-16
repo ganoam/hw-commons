@@ -48,7 +48,7 @@ class stream_reg_scoreboard extends dv_base_scoreboard #(
     forever begin
       in_fifo.get(item);
       expected_items.push_back(item);
-      `uvm_info(`gfn, $sformatf("received push_pull item:\n%0s", item.sprint()), UVM_HIGH)
+      `uvm_info(`gfn, $sformatf("in_fifo.pop: received push_pull item:\n%0s", item.sprint()), UVM_HIGH)
     end
   endtask
 
@@ -79,7 +79,9 @@ class stream_reg_scoreboard extends dv_base_scoreboard #(
       end
 
 
-      `uvm_info(`gfn, $sformatf("received push_pull item:\n%0s", item.sprint()), UVM_HIGH)
+      `uvm_info(`gfn, $sformatf("out_fifo.pop: push_pull item:\n%0s", item.sprint()), UVM_HIGH)
+      void'(actual_items.pop_front());
+      void'(expected_items.pop_front());
     end
   endtask
 
