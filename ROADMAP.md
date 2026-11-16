@@ -1,8 +1,8 @@
 # Roadmap
 
 - [ ] Verilator compatibility
-- [ ] stream_reg: do verification the lowrisc way, evaluate.
-    - [ ] naive approach: stream_reg as standalone IP
+- [x] stream_reg: do verification the lowrisc way, evaluate.
+    - [x] naive approach: stream_reg as standalone IP
     - [ ] reuse environment: verify stream_fifo with as little additional code as possible.
 - [ ] AXI register bank with DV modeled after lowrisc's TL-UL components.
     - [ ] Hand written AXI regbank

@@ -38,8 +38,11 @@ built as an **independent framework on top of the lowRISC/OpenTitan baseline.**
     FuseSoC + Verilator flow up, scratch benches running
 - ▸ **Pilot**: `stream_reg`
     - ✔ Pure-UVM testbench running
-    - First module to exercise the opentitan flow
+    - ✔ First module to exercise the opentitan flow
+        - refine verification methods:
+            - coverage collection
     - Test verilator maturity, [find bugs](https://github.com/verilator/verilator/issues?q=is%3Aissue+author%3Aganoam), [fixes](https://github.com/verilator/verilator/pulls?q=is%3Apr+author%3Aganoam), and workarounds
+        - report remaining bugs in vlt-debug
 - → **Grow the library**:
     - Explore and exercise and opentitan frameworks, improve verilator compatibilities
     - Not yet used: `mem_model`, `csr_utils`, RAL layers.
