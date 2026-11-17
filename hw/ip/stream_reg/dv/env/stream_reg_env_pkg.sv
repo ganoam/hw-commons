@@ -12,6 +12,7 @@ package stream_reg_env_pkg;
   import push_pull_agent_pkg::*;
   import dv_base_agent_pkg::*;
   import dv_lib_pkg::*;
+  import stream_env_pkg::*;
 
   // macro includes
   `include "uvm_macros.svh"
@@ -24,9 +25,6 @@ package stream_reg_env_pkg;
 
   // package sources
   `include "stream_reg_env_cfg.sv"
-  `include "stream_reg_env_cov.sv"
-  `include "stream_reg_virtual_sequencer.sv"
-  `include "stream_reg_scoreboard.sv"
   `include "stream_reg_env.sv"
   `include "stream_reg_vseq_list.sv"
 

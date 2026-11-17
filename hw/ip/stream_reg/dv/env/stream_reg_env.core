@@ -8,15 +8,10 @@ description: "STREAM_REG DV UVM environment"
 filesets:
   files_dv:
     depend:
-      - lowrisc:dv:dv_lib
-      - lowrisc:dv:push_pull_agent
-      - lowrisc:dv:push_pull_agent
+      - ganoam:dv:stream_env
     files:
       - stream_reg_env_pkg.sv
       - stream_reg_env_cfg.sv: {is_include_file: true}
-      - stream_reg_env_cov.sv: {is_include_file: true}
-      - stream_reg_virtual_sequencer.sv: {is_include_file: true}
-      - stream_reg_scoreboard.sv: {is_include_file: true}
       - stream_reg_env.sv: {is_include_file: true}
       - seq_lib/stream_reg_vseq_list.sv: {is_include_file: true}
       - seq_lib/stream_reg_base_vseq.sv: {is_include_file: true}

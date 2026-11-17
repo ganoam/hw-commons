@@ -1,15 +1,16 @@
 // Copyright lowRISC contributors (OpenTitan project).
-// Generated from lowRISC uvmdvgen templates; modifications by ganoam.
+// Modifications by ganoam.
 // Licensed under the Apache License, Version 2.0, see LICENSE for details.
 // SPDX-License-Identifier: Apache-2.0
 
-class stream_reg_scoreboard extends dv_base_scoreboard #(
-    .CFG_T(stream_reg_env_cfg),
-    .COV_T(stream_reg_env_cov)
+class stream_scoreboard #(parameter int DataWidth = 32)
+  extends dv_base_scoreboard #(
+    .CFG_T(stream_env_cfg#(DataWidth)),
+    .COV_T(stream_env_cov#(DataWidth))
   );
   `include "uvm_macros.svh"
   `include "dv_macros.svh"
-  `uvm_component_utils(stream_reg_scoreboard)
+  `uvm_component_param_utils(stream_scoreboard#(DataWidth))
 
   // local variables
 

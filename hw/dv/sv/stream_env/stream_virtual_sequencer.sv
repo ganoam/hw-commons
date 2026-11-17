@@ -1,13 +1,14 @@
 // Copyright lowRISC contributors (OpenTitan project).
-// Generated from lowRISC uvmdvgen templates; modifications by ganoam.
+// Modifications by ganoam.
 // Licensed under the Apache License, Version 2.0, see LICENSE for details.
 // SPDX-License-Identifier: Apache-2.0
 
-class stream_reg_virtual_sequencer extends dv_base_virtual_sequencer #(
-    .CFG_T(stream_reg_env_cfg),
-    .COV_T(stream_reg_env_cov)
+class stream_virtual_sequencer #(parameter int DataWidth = 32)
+  extends dv_base_virtual_sequencer #(
+    .CFG_T(stream_env_cfg#(DataWidth)),
+    .COV_T(stream_env_cov#(DataWidth))
   );
-  `uvm_component_utils(stream_reg_virtual_sequencer)
+  `uvm_component_param_utils(stream_virtual_sequencer#(DataWidth))
 
   push_pull_sequencer #(.HostDataWidth(DataWidth),.DeviceDataWidth(DataWidth)) in_sequencer_h;
   push_pull_sequencer #(.HostDataWidth(DataWidth),.DeviceDataWidth(DataWidth)) out_sequencer_h;

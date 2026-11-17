@@ -1,0 +1,30 @@
+CAPI=2:
+# Copyright lowRISC contributors (OpenTitan project).
+# Modifications by ganoam.
+# Licensed under the Apache License, Version 2.0, see LICENSE for details.
+# SPDX-License-Identifier: Apache-2.0
+name: "ganoam:dv:stream_env:0.1"
+description: "Generic push_pull stream DV UVM environment"
+filesets:
+  files_dv:
+    depend:
+      - lowrisc:dv:dv_lib
+      - lowrisc:dv:push_pull_agent
+    files:
+      - stream_env_pkg.sv
+      - stream_env_cfg.sv: {is_include_file: true}
+      - stream_env_cov.sv: {is_include_file: true}
+      - stream_virtual_sequencer.sv: {is_include_file: true}
+      - stream_scoreboard.sv: {is_include_file: true}
+      - stream_env.sv: {is_include_file: true}
+      - seq_lib/stream_vseq_list.sv: {is_include_file: true}
+      - seq_lib/stream_base_vseq.sv: {is_include_file: true}
+      - seq_lib/stream_smoke_vseq.sv: {is_include_file: true}
+      - seq_lib/stream_common_vseq.sv: {is_include_file: true}
+    file_type: systemVerilogSource
+
+
+targets:
+  default:
+    filesets:
+      - files_dv

@@ -1,5 +1,5 @@
 // Copyright lowRISC contributors (OpenTitan project).
-// Generated from lowRISC uvmdvgen templates; modifications by ganoam.
+// Modifications by ganoam.
 // Licensed under the Apache License, Version 2.0, see LICENSE for details.
 // SPDX-License-Identifier: Apache-2.0
 
@@ -9,11 +9,12 @@
  * Covergroups may also be wrapped inside helper classes if needed.
  */
 
-class stream_reg_env_cov extends dv_base_env_cov #(.CFG_T(stream_reg_env_cfg));
-  `uvm_component_utils(stream_reg_env_cov)
+class stream_env_cov #(parameter int DataWidth = 32)
+  extends dv_base_env_cov #(.CFG_T(stream_env_cfg#(DataWidth)));
+  `uvm_component_param_utils(stream_env_cov#(DataWidth))
 
   // the base class provides the following handles for use:
-  // stream_reg_env_cfg: cfg
+  // stream_env_cfg: cfg
 
   // covergroups
   // [add covergroups here]
