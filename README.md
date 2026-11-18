@@ -128,3 +128,23 @@ work) is Apache-2.0.
 | `deps/uvm-verilator/` | IEEE 1800.2 UVM reference implementation adapted for Verilator (git submodule). | [ganoam/uvm-verilator](https://github.com/ganoam/uvm-verilator), fork of the Accellera UVM kit | Apache-2.0 |
 | `util/` | Tooling: `reggen` (`util/reggen/`), the register generation package (regtool) producing RTL, UVM RAL models and documentation from register hjson specs; and `uvmdvgen.py` (`util/uvmdvgen/`), which generates boilerplate UVM agents and full testbench environments. | [lowRISC/OpenTitan](https://github.com/lowRISC/opentitan) | Apache-2.0 |
 | `DVCodingStyle.md` | lowRISC Design Verification Styleguide | [lowRISC/style-guides](https://github.com/lowRISC/style-guides) | CC-BY-4.0 |
+
+### Import history
+
+Running index of vendored imports: `git filter-repo` rounds merged
+with `--allow-unrelated-histories` (later flattened by rebase). The
+upstream SHA is the tip of the filtered history: the newest upstream
+commit touching the imported paths at import time. Add a row for each
+new import.
+
+| Import date | Source repository | Upstream SHA | Imported paths |
+|-------------|-------------------|--------------|----------------|
+| 2026-11-04 | [lowRISC/opentitan](https://github.com/lowRISC/opentitan) | [`9a6a31d`](https://github.com/lowRISC/opentitan/commit/9a6a31d0430709e4b97b1268232533af9827b244) | `hw/ip/prim` |
+| 2026-11-04 | [lowRISC/opentitan](https://github.com/lowRISC/opentitan) | [`531b4bd`](https://github.com/lowRISC/opentitan/commit/531b4bd99bc6ff124b08a000f120e417eecdef80) | `doc/`, `hw/dv/sv/{common_ifs,dv_base_agent,mem_model,push_pull_agent}`, `hw/ip/prim_generic`, `util/uvmdvgen` |
+| 2026-11-04 | [lowRISC/style-guides](https://github.com/lowRISC/style-guides) | [`735d911`](https://github.com/lowRISC/style-guides/commit/735d9112220033467e930b9afff250f76794a6fd) | `DVCodingStyle.md` |
+| 2026-11-05 | [lowRISC/opentitan](https://github.com/lowRISC/opentitan) | [`eca6e35`](https://github.com/lowRISC/opentitan/commit/eca6e356681128b84276e7b2c5b31f49e724feb6) | `hw/dv/sv/{bus_params_pkg,dv_lib,dv_utils,scoreboard,str_utils}`, `hw/dv/tools/ralgen` |
+| 2026-11-05 | [lowRISC/opentitan](https://github.com/lowRISC/opentitan) | [`8b74538`](https://github.com/lowRISC/opentitan/commit/8b745386bce195f5a0d4b7b781d2a457ad43b494) | `util/reggen` |
+| 2026-11-06 | [lowRISC/opentitan](https://github.com/lowRISC/opentitan) | [`d87f8dc`](https://github.com/lowRISC/opentitan/commit/d87f8dca16128e729442251d894dffc9496f48b4) | `hw/dv/sv/{csr_utils,dv_base_reg}` |
+| 2026-11-06 | [lowRISC/opentitan](https://github.com/lowRISC/opentitan) | [`3e8d137`](https://github.com/lowRISC/opentitan/commit/3e8d137fa29ce026b0365dcfb8c622aeada39a4d) | `hw/ip/tlul` |
+| 2026-11-08 | [lowRISC/opentitan](https://github.com/lowRISC/opentitan) | [`e5dcea7`](https://github.com/lowRISC/opentitan/commit/e5dcea7e552c6dcbda5f79a3c107431f116d5267) | `hw/lint`, `hw/check_tool_requirements.*` |
+| 2026-11-08 | [lowRISC/opentitan](https://github.com/lowRISC/opentitan) | [`dd5aa7f`](https://github.com/lowRISC/opentitan/commit/dd5aa7f65f1503c352adcde627aae537eadd7f36) | `hw/tool_requirements.py` |
