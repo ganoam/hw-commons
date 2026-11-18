@@ -2,3 +2,7 @@
 	path = deps/uvm-verilator
 	url = git@github.com:ganoam/uvm-verilator
 	branch = master
+[submodule "deps/scripts"]
+	path = deps/scripts
+	url = git@github.com:ganoam/scripts
+	branch = master
