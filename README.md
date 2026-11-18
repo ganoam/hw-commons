@@ -56,7 +56,18 @@ built as an **independent framework on top of the lowRISC/OpenTitan baseline.**
 Clone this repository including its submodules (`git clone --recursive`,
 or `git submodule update --init` in an existing clone). The submodule in
 `deps/uvm-verilator` provides the UVM package required by the UVM
-testbenches.
+testbenches. `deps/scripts` provides git utility scripts and hooks.
+
+Once per clone, run the hook setup to point git at the hooks shipped in
+`deps/scripts/git-hooks/`:
+
+```console
+$ deps/scripts/git-util/setup-git-hooks.sh
+```
+
+This sets `core.hooksPath` relative to the repo root, so submodule
+updates refresh the hooks automatically. If the submodule is not
+checked out, the hooks silently do not run.
 
 Install FuseSoC and edalize into a Python virtual environment:
 
