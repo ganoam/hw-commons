@@ -83,3 +83,5 @@ Docs + repros in `vlt-debug/const-ref-fork/`.
 - Reworked DEVLOG.md onto `recipes/devlog.md` + MdStyle conventions: ISO-dated sections, one sentence per line, no em-dashes; sections before Nov 8 tagged `[inferred from git log]` (reconstructed when the log was started, not contemporaneously).
 - snippet: `AGENTS.md` reworked for agent onboarding (slimmed onto the shared template).
 - snippet: `deps/scripts` and `deps/workflows` pins bumped.
+
+## 2026-11-24: bump workflows 7ea49fa9...720c0a39 (35 commits)
