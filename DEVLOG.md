@@ -85,3 +85,5 @@ Docs + repros in `vlt-debug/const-ref-fork/`.
 - snippet: `deps/scripts` and `deps/workflows` pins bumped.
 
 ## 2026-11-24: bump workflows 7ea49fa9...720c0a39 (35 commits)
+
+## 2026-11-24: bump scripts 3fdd1a5e...f4c1869c (22 commits)
